@@ -1,29 +1,32 @@
-# 1. Use a lightweight Python image
-FROM python:3.11-slim
+# 1. Gunakan image Python yang stabil (Bookworm adalah versi Debian yang sangat stabil)
+FROM python:3.11-slim-bookworm
 
-# 2. Set the working directory inside the container
+# 2. Set working directory
 WORKDIR /app
 
-# 3. Install system dependencies (needed for some data libraries like OpenCV or psycopg2)
+# 3. Install system dependencies
+# Membuang software-properties-common karena tidak diperlukan untuk library data standar
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
-    software-properties-common \
     git \
+    libxml2-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# 4. Copy only the requirements first (optimizes Docker caching)
+# 4. Copy requirements dulu untuk memanfaatkan Docker Layer Caching
 COPY requirements.txt .
 
 # 5. Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Menambahkan upgrade pip agar instalasi library modern lebih lancar
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# 6. Copy the rest of your application code
+# 6. Copy seluruh sisa kode aplikasi
 COPY . .
 
-# 7. Expose the port GCP Cloud Run expects
+# 7. Expose port 8080 (standar Cloud Run)
 EXPOSE 8080
 
-# 8. Run the Streamlit app
-# We explicitly set the port to 8080 and address to 0.0.0.0
-CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+# 8. Jalankan Streamlit
+# Healthcheck dinonaktifkan agar startup di Cloud Run lebih cepat
+CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0", "--browser.gatherUsageStats=false"]
