@@ -1,0 +1,10 @@
+{
+  "last_sync_utc": "2026-04-24T00:00:00Z",
+  "rows_processed": 128340,
+  "status": "healthy",
+  "sources": [
+    {"name": "CRM", "type": "api", "freshness_minutes": 60},
+    {"name": "Billing", "type": "db", "freshness_minutes": 120},
+    {"name": "WebEvents", "type": "stream", "freshness_minutes": 5}
+  ]
+}

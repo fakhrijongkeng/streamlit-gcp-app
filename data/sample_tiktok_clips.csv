@@ -1,0 +1,6 @@
+clip_date,creator,topic,caption,url,views,likes,comments,shares,saves
+2026-03-01,creator_a,Data Engineering,"ETL tips: incremental loads + idempotency",https://tiktok.com/@creator_a/video/1,120000,8200,340,210,150
+2026-03-03,creator_b,Data Analyst,"3 dashboard mistakes to avoid",https://tiktok.com/@creator_b/video/2,98000,6400,260,180,120
+2026-03-04,creator_c,Data Scientist,"What is overfitting? quick example",https://tiktok.com/@creator_c/video/3,143000,11200,510,330,260
+2026-03-10,creator_a,AI,"Stable Diffusion prompt patterns",https://tiktok.com/@creator_a/video/4,76000,5300,190,140,90
+2026-03-12,creator_b,Analytics,"Cohort analysis in 60 seconds",https://tiktok.com/@creator_b/video/5,65000,4200,160,120,70
