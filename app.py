@@ -60,7 +60,8 @@ if __name__ == "__main__":
             st.Page("app_pages/1_Dashboard.py", title="Dashboard", icon="📊"),
             st.Page("app_pages/2_Scrapper.py", title="Scrapper", icon="🕷️"),
             st.Page("app_pages/3_Data_Pipeline.py", title="Data Pipeline", icon="🧱"),
-            st.Page("app_pages/4_Blog.py", title="Blog", icon="📝"),
+            st.Page("app_pages/4_Blog.py", title="Blog", icon="📝"), 
+            st.Page("app_pages/5_Chatbot.py", title="Chatbot", icon="💬"),
         ]    
     )
     nav.run()

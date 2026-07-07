@@ -53,6 +53,10 @@ def main() -> None:
                 st.error(str(e))
                 if getattr(e, "status_code", None) == 503:
                     st.info("If the model is cold-starting, retry after a short wait.")
+                elif getattr(e, "status_code", None) in {401, 403}:
+                    st.info("Check that your Hugging Face token is valid and has access to the selected model.")
+                else:
+                    st.info("If this keeps happening, try again in a few minutes or switch to a different model.")
                 return
 
         st.image(resp.image_bytes, caption="Generated image", use_container_width=True)
@@ -60,10 +64,19 @@ def main() -> None:
     section("Notes")
     st.markdown(
         "- Streamlit Cloud free tier is CPU-only, so generation must be offloaded via API.\n"
-        "- Keep prompts short and avoid excessive retries to stay within rate limits."
+        "- Keep prompts short and avoid excessive retries to stay within rate limits.\n"
+        "- If generation fails with a network error, your network or DNS may be blocking access to Hugging Face."
     )
 
+def _running_in_streamlit() -> bool:
+    try:
+        from streamlit.runtime.scriptrunner import get_script_run_ctx
 
-# if __name__ == "__main__":
-#     main()
+        return get_script_run_ctx() is not None
+    except Exception:
+        return False
+
+
+if __name__ == "__main__" or _running_in_streamlit():
+    main()
 
