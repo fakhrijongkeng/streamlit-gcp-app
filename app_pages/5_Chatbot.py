@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import streamlit as st
+import os
 
 from src.ui import render_header, section, set_page_config
 
@@ -52,7 +53,7 @@ def main() -> None:
         st.error("Paket google-genai belum terinstal. Jalankan `pip install google-genai`.")
         return
 
-    api_key = st.secrets.get("GEMINI_TOKEN_KEY")
+    api_key = os.environ.get("GEMINI_TOKEN_KEY")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
